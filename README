@@ -1,1 +1,163 @@
-Javascript Utility for having multilanguage HTML pages
+Javascript utility for having multilanguage HTML pages.
+
+===============
+ANXIOUS INSTALL
+===============
+You already have an HTML page full of "Lorem ipsum" and you want to have it in
+several languages as catalan (ca), spanish (es) and english (es).
+
+0) Preconditions
+   Just to keep the things easier, we suppose we have the following initial situation:
+   + You have an 'index,html' that need to be translated.
+   + At the same level that index.html there is a folder 'js/' and inside it
+     you have copied 'I18N.js'
+   + At the same level that index.html there is a folder 'i18n/' and inside it
+     you have created so many empty files as languages you want (the i18-files).
+     The names of the files are:
+       . i18n/i18n_ca.txt (for Catalan)
+       . i18n/i18n_es.txt (for Spanish)
+       . i18n/i18n_en.txt (for English)
+       . .......
+   + You can access to your 'index.html'  via a WebServer, using http://....../index.html
+     Sorry but, as we say in spanish "lo que no puede ser, no puede ser y además
+     es imposible". This library uses AJAX and you can not use it if you open 
+     your file locally. If you do it, you will see the original page without any translations.   
+
+Now we can start!
+
+1) Add the JS
+   In the <header> add
+   <script type="text/javascript" src="http://yui.yahooapis.com/combo?2.9.0/build/yahoo-dom-event/yahoo-dom-event.js&2.9.0/build/connection/connection_core-min.js&2.9.0/build/element/element-min.js&2.9.0/build/json/json-min.js"></script> 
+   <script type="text/javascript" src="I18N.js" charset="UTF-8"></script>
+   <script type="text/javascript">
+   YAHOO.util.Event.onDOMReady(function(){
+     var i18n=new I18N();
+     i18n.buildJSON();
+   });
+   </script>
+   
+2) Identify all the elements that need translation.
+   Search in the HTML all the elements (span, div, p, h...) that containt text to be translated.
+   To each element:
+   - Add an attribute 'id' if it does not have it (id should identifies the kind of information). 
+   - Add the class "i18n" 
+   
+   Example:
+   Something like
+   
+     <p>Our company has lorem ipsum....</p>   => This information is the Overview if the company 
+   
+   will be changed in
+   
+     <p id="overview" class="i18n">Our company has lorem ipsum....</p>   => This information is the Overview if the company 
+   
+   
+3) Build the files with the translations.
+   
+   Open the page in the browser (rememeber, via htpp:/.....).
+   An alert is shown with the template for the translations. 
+   Copy it in the 'i18n-files' you have created before, with the right 
+   translation for each language.
+   
+4) Add a language selector.
+   It is a serie of links for changing the languages. Each selector has an id.
+   
+   Example:
+   <span id="sel_ca" class="i18n"></span>
+   <span id="sel_es" class="i18n"></span>
+   <span id="sel_en" class="i18n"></span>
+   
+5) Final configuration
+   Replace the line
+   
+   i18n.buildJSON();
+
+   by
+   
+   i18n.setDefLang("en"); /* Your default language */
+   i18n.setLangSelectors([ ['sel_ca','ca'],['sel_es','es'],['sel_en','en'] ]);
+   i18n.loadAndTranslate();
+   
+6) Load the page again. Now you will be able to change language. That's all!   
+   
+=====================
+COFFEEE BREAK INSTALL
+=====================
+Ok, now you've more time (take your coffee) and you want to explore all the options. Welcome!
+
+USE
+===
+1) Include the JS
+   <script type="text/javascript" src="http://yui.yahooapis.com/combo?2.9.0/build/yahoo-dom-event/yahoo-dom-event.js&2.9.0/build/connection/connection_core-min.js&2.9.0/build/element/element-min.js&2.9.0/build/json/json-min.js"></script> 
+   <script type="text/javascript" src="I18N.js" charset="UTF-8"></script>
+
+   This uses YUI2 (probably that will be removed ina next release)
+   
+2) Create the translation files (minimum one file per language).
+   We have two options:
+   a) Create a single file with ALL the translations for ALL the pages.
+      PRO    : We have all the strings in one single file, easier to handle.
+      CONTRA : File is bigger and page cant takes longer to load.
+   b) Create a different file for each page
+      PRO    : Files are smaller, page loads faster.
+      CONTRA : More files, harder to handle. If a translations is used in 
+               several pages we have to put it in each single file.
+
+   NOTE: in both options, "one file" means "one file per language".
+   
+   The content of the file is JSON. The key represents the identifier of the string
+   to be translated and the value is the translation for a certain language:
+   {
+   "key1" : "Translation 1",
+   "key2" : "Translation 2"
+   }
+
+
+   For example, a file for Spanish could be
+   {
+   "hello"   : "Hola a todos",
+   "goodbye" : "Hasta pronto"
+   }
+
+   IMPORTANT:
+   + The encoding of the files is UTF-8
+   + No comments are allowed
+   
+   The default behaviour is (to change it see the FAQ secion below):
+   + One file per page
+   + All the files are stored in a folder called "i18n/" at the same level that the pages
+   + The name of the files is the name of the page without the extension + "_<lang>.txt".
+   
+   For example, if the page's URL is:
+     http://www.myapp.com/pages/listProducts.html
+   and the selected language is spanish (es), the JS will try to load the file
+     http://www.myapp.com/pages/i18n/listProducts_es.txt
+     
+3) Configure and execute the library
+   This need to be done once the DOM is loaded. One good place to do it is in
+   the body's 'onload' event. Let's see an example:
+   
+   http://www.myapp.com/pages/index.html
+   
+   <!DOCTYPE html>
+   <html>
+     <head>
+       <script type="text/javascript">
+       function translate() {
+         var i18n=new I18N();
+         i18n.setCurrLangUrlParameter("lang","ca");
+         i18n.setLangSelectors([['sel_ca','ca'],['sel_es','es']]);
+         i18n.loadAndTranslate();
+       }
+       </script>
+     </head>
+     <body onload="translate()">
+       <span id="sel_ca" class="i18n"></span>
+       <span id="sel_es" class="i18n"></span>     
+       <p class="i18n">greeting</p>
+     </body>
+   </html>
+  
+   Let's analyze it:
+   + i18n.setCurrLangUrlParameter("lang","ca")
+     This line specifies that the 

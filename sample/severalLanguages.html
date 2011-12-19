@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script type="text/javascript" src="http://yui.yahooapis.com/combo?2.9.0/build/yahoo-dom-event/yahoo-dom-event.js&2.9.0/build/connection/connection_core-min.js&2.9.0/build/element/element-min.js&2.9.0/build/json/json-min.js"></script> 
+    <script type="text/javascript" src="../I18N.js" charset="UTF-8"></script>
+    <script type="text/javascript">
+    YAHOO.util.Event.onDOMReady(function(){
+      // Catalan
+      var i18nCa=new I18N();
+      i18nCa.setCurrLang("ca");
+      i18nCa.setI18nClass("i18n_ca");
+      i18nCa.loadAndTranslate();
+
+      // Spanish
+      var i18nEs=new I18N();
+      i18nEs.setCurrLang("es");
+      i18nEs.setI18nClass("i18n_es");
+      i18nEs.loadAndTranslate();
+
+      // English
+      var i18nEn=new I18N();
+      i18nEn.setCurrLang("en");
+      i18nEn.setI18nClass("i18n_en");
+      i18nEn.loadAndTranslate();
+
+    });
+    </script>
+    <style type="text/css">
+    .i18n_ca, .i18n_es, .i18n_en {
+        color: red; 
+    }
+    #info {
+    	font-weight:bold;
+    }    
+    </style>
+  </head>
+<body onload="translate()">
+  <h1>Several Languages</h1>
+  <p id="info">All the content that is multilanguage is shown in red</p>
+  <ul>
+    <li>Page with several languages mixed.</li>
+    <li>There is no language selector.</li>
+  </ul>
+  
+  <h1>Content in catalan</h1>
+  <h2 class="i18n_ca">lang</h2>
+  <p class="i18n_ca">greeting</p>
+  
+  <h1>Content in Spanish</h1>
+  <h2 class="i18n_es">lang</h2>
+  <p class="i18n_es">greeting</p>
+
+  <h1>Content in English</h1>
+  <h2 class="i18n_en">lang</h2>
+  <p class="i18n_en">greeting</p>
+
+  <a href="index.html">&lt; Back to Index</a> 
+</body>
+</html>

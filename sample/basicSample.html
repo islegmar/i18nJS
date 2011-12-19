@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script type="text/javascript" src="http://yui.yahooapis.com/combo?2.9.0/build/yahoo-dom-event/yahoo-dom-event.js&2.9.0/build/connection/connection_core-min.js&2.9.0/build/element/element-min.js&2.9.0/build/json/json-min.js"></script> 
+    <script type="text/javascript" src="../I18N.js" charset="UTF-8"></script>
+    <script type="text/javascript">
+    YAHOO.util.Event.onDOMReady(function(){
+      var i18n=new I18N();
+      i18n.setDefLang("es");
+      i18n.setLangSelectors([ ['sel_ca','ca'],['sel_es','es'],['sel_en','en'] ]);
+      i18n.loadAndTranslate();
+      //i18n.buildJSON();
+    });
+    </script>
+    <style type="text/css">
+    .active_lang {
+        background-color: #d8da3d 
+    }
+    .i18n {
+        color: red; 
+    }   
+    #info {
+    	font-weight:bold;
+    }    
+    </style>
+  </head>
+<body>
+  <h1>Basic Sample</h1>
+  <p id="info">All the content that is multilanguage is shown in red</p>
+  <ul>
+    <li>Page in one language.</li>
+    <li>There is a language selector.</li>
+  </ul>
+
+  <p>This is the language selector</p>
+  <span id="sel_ca" class="i18n"></span>
+  <span id="sel_es" class="i18n"></span>
+  <span id="sel_en" class="i18n"></span>
+  
+  <p>Translation of string 'greeting' in the selected language.</p>
+  <h1 class="i18n">greeting</h1>
+
+  <p>This is the translation of the string 'unknown' that has no translations. It shows how a string without translation is shown. This behaviour can be changed</p>
+  <p class="i18n">unknown</p>
+
+  <a href="index.html">&lt; Back to Index</a> 
+</body>
+</html>

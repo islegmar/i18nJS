@@ -1,0 +1,9 @@
+{
+"Greeting" : "A los buenos días",
+"lang"     : "español",
+"sel_ca"   : "Catalán",
+"sel_es"   : "Español",
+"sel_en"   : "Inglés",
+"step1"    : "Este es el primer paso (español)",
+"step2"    : "Este es el segundo paso (español)"
+}

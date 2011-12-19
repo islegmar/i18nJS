@@ -1,0 +1,9 @@
+{
+"Greeting" : "Bon dia",
+"lang"     : "català",
+"sel_ca"   : "Català",
+"sel_es"   : "Espanyol",
+"sel_en"   : "Anglès",
+"step1"    : "Aquest es el primer pas (català)",
+"step2"    : "Aquest es el segon pas (català)"
+}

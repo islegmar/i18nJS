@@ -1,0 +1,9 @@
+{
+"Greeting" : "Good day!",
+"lang"     : "english",
+"sel_ca"   : "Catalan",
+"sel_es"   : "Spanish",
+"sel_en"   : "English",
+"step1"    : "This is the first step (english)",
+"step2"    : "This is the second step (english)"
+}

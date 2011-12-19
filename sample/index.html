@@ -1,27 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script type="text/javascript" src="http://yui.yahooapis.com/combo?2.9.0/build/yahoo-dom-event/yahoo-dom-event.js&2.9.0/build/connection/connection_core-min.js&2.9.0/build/element/element-min.js&2.9.0/build/json/json-min.js"></script> 
-    <script type="text/javascript" src="../I18N.js" charset="UTF-8"></script>
-    <script type="text/javascript">
-    function translate() {
-      var i18n=new I18N();
-      I18N.setCurrLangUrlParameter("lang","ca");
-      I18N.setLangSelectors([['sel_ca','ca'],['sel_es','es']]);
-      I18N.loadAndTranslate();
-    }
-    </script>
+    <meta charset="utf-8"/>
     <style type="text/css">
-    .active_lang {
-        color: purple;
-        background-color: #d8da3d 
+    .i18n {
+        color: red; 
+    }
+    #info {
+    	font-weight:bold;
     }
     </style>
   </head>
-<body onload="translate()">
-  <h1 class="i18n">greeting</h1>
-  <p class="i18n">unknown</p>
-  <span id="sel_ca">CATALAN</span>
-  <span id="sel_es">ESPAÑOL</span>
+<body>
+  <h1>i18nJS Samples</h1>
+  <p id="info">All the content that is multilanguage is shown in red</p>
+  <ul>
+    <li><a href="basicSample.html">Basic sample : a page in one language with language selector.</a></li>
+    <li><a href="severalLanguages.html">Several languages : a page with several languages without language selector.</a></li>
+    <li><a href="step1.html">Step#1, Step#2 : Keeping the language choice among calls.</a></li>
+  <ul>
 </body>
 </html>
