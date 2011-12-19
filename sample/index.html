@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="http://yui.yahooapis.com/combo?2.9.0/build/yahoo-dom-event/yahoo-dom-event.js&2.9.0/build/connection/connection_core-min.js&2.9.0/build/element/element-min.js&2.9.0/build/json/json-min.js"></script> 
+    <script type="text/javascript" src="../I18N.js" charset="UTF-8"></script>
+    <script type="text/javascript">
+    function translate() {
+      var i18n=new I18N();
+      I18N.setCurrLangUrlParameter("lang","ca");
+      I18N.setLangSelectors([['sel_ca','ca'],['sel_es','es']]);
+      I18N.loadAndTranslate();
+    }
+    </script>
+    <style type="text/css">
+    .active_lang {
+        color: purple;
+        background-color: #d8da3d 
+    }
+    </style>
+  </head>
+<body onload="translate()">
+  <h1 class="i18n">greeting</h1>
+  <p class="i18n">unknown</p>
+  <span id="sel_ca">CATALAN</span>
+  <span id="sel_es">ESPAÑOL</span>
+</body>
+</html>
