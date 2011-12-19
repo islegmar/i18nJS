@@ -59,14 +59,14 @@ I18N.funcGetFile = function() {
  * Function called to select a language
  */
 I18N.funcSelectLang = function(ele) {
-		YAHOO.util.Dom.addClass(ele, "active_lang");
+    YAHOO.util.Dom.addClass(ele, "active_lang");
 }
 
 /**
  * Function called to deselect a language
  */
 I18N.funcDeselectLang = function(ele) {
-		YAHOO.util.Dom.removeClass(ele, "active_lang");
+    YAHOO.util.Dom.removeClass(ele, "active_lang");
 }
 
 // ------------------------------------------------------------ Class Parameters
@@ -82,26 +82,26 @@ I18N.setCurrLangUrlParameter = function (parameterName, defLang) {
   I18N.defLang = defLang;
 
   // Get the language form the URL
-	var queryString = window.top.location.search.substring(1);
-	var lang = defLang;
-	
-	var parameterName = parameterName + "=";
-	if ( queryString.length > 0 ) {
-		// Find the beginning of the string
-		var begin = queryString.indexOf ( parameterName );
-		// If the parameter name is not found, skip it, otherwise return the value
-		if ( begin != -1 ) {
-			// Add the length (integer) to the beginning
-			begin += parameterName.length;
-			// Multiple parameters are separated by the "&" sign
-			var end = queryString.indexOf ( "&" , begin );
-			if ( end == -1 ) {
-				end = queryString.length;
-			}
-			// Return the string
-			lang = unescape ( queryString.substring ( begin, end ) );
-		}
-	}
+  var queryString = window.top.location.search.substring(1);
+  var lang = defLang;
+  
+  var parameterName = parameterName + "=";
+  if ( queryString.length > 0 ) {
+    // Find the beginning of the string
+    var begin = queryString.indexOf ( parameterName );
+    // If the parameter name is not found, skip it, otherwise return the value
+    if ( begin != -1 ) {
+      // Add the length (integer) to the beginning
+      begin += parameterName.length;
+      // Multiple parameters are separated by the "&" sign
+      var end = queryString.indexOf ( "&" , begin );
+      if ( end == -1 ) {
+        end = queryString.length;
+      }
+      // Return the string
+      lang = unescape ( queryString.substring ( begin, end ) );
+    }
+  }
 
   I18N.currLang = lang;
 }
@@ -121,76 +121,76 @@ I18N.setCurrLangUrlParameter = function (parameterName, defLang) {
  * @return VOID
  */
 I18N.loadData = function(pCallback, pParams) {
-	var callback = pCallback;
-	var params = pParams;
-	
-	YAHOO.util.Connect.asyncRequest("POST", I18N.funcGetFile(),
-			{ 
-				success: function(o) { 
-					var data = YAHOO.lang.JSON.parse(o.responseText);
-					//var cadenas = data;
-					for(var key in data ) {
-						I18N.translations[I18N.keysCaseInsensitive ? key.toLowerCase() : key] = data[key];
-					}
+  var callback = pCallback;
+  var params = pParams;
+  
+  YAHOO.util.Connect.asyncRequest("POST", I18N.funcGetFile(),
+      { 
+        success: function(o) { 
+          var data = YAHOO.lang.JSON.parse(o.responseText);
+          //var cadenas = data;
+          for(var key in data ) {
+            I18N.translations[I18N.keysCaseInsensitive ? key.toLowerCase() : key] = data[key];
+          }
           /*
-					if ( data.lang ) {
-						I18N.currLang = data.lang;
-						I18N.selectActiveLang();
-					}
-					*/
-					if ( callback ) {
-						callback(params);	
-					}
-				},
-				failure: function(o) { alert("Error : " + o); }
-			});
+          if ( data.lang ) {
+            I18N.currLang = data.lang;
+            I18N.selectActiveLang();
+          }
+          */
+          if ( callback ) {
+            callback(params); 
+          }
+        },
+        failure: function(o) { alert("Error : " + o); }
+      });
 }
 
 /**
  * Translate the page using the translations we already have.
  */
 I18N.translatePage = function() {
-	// --------------------------------
-	// Step 1: Get all the HTML elements that need a translation
-	// --------------------------------	
-	// mapEle es un Map, where the key es el string to be translated and the value 
+  // --------------------------------
+  // Step 1: Get all the HTML elements that need a translation
+  // -------------------------------- 
+  // mapEle es un Map, where the key es el string to be translated and the value 
   // is an array with all the HTMLElements with that string
-	var mapEle = [];
+  var mapEle = [];
 
-	YAHOO.util.Dom.getElementsByClassName(I18N.i18nClass, null, null, function(ele) {
+  YAHOO.util.Dom.getElementsByClassName(I18N.i18nClass, null, null, function(ele) {
     var text=ele.id;
-		if ( !text||text.length==0 ) {
+    if ( !text||text.length==0 ) {
       text=I18N.keysCaseInsensitive ? ele.innerHTML.toLowerCase() : ele.innerHTML;
     }
-		ele.innerHTML="";
+    ele.innerHTML="";
     if ( text ) {
       /*
-			if ( text.indexOf(",")!=-1 ) {
-				throw "No se puede traducir el término '" + text + "' porque contiene una , (carácter no válido)";
-			}
+      if ( text.indexOf(",")!=-1 ) {
+        throw "No se puede traducir el término '" + text + "' porque contiene una , (carácter no válido)";
+      }
       */
-			// Nos vamos a guardar este HTMLElement, asociado a este texto
-			var lista = mapEle[text];
-			// Nuevo término
-			if ( !lista ) {
-				lista = new Array();
-				mapEle[text] = lista;
-			}
-			lista.push(ele);
-		}
-	});
-	
-	// --------------------------------
-	// Step 2: Translate all the HTML elements
-	// --------------------------------	
-	for ( var key in mapEle ) {
-		var listaEle = mapEle[key];
-		for(var ind=0; ind<listaEle.length; ++ind ) {
-			var ele = listaEle[ind];
-			ele.innerHTML = I18N.translateStr(key);
-			YAHOO.util.Dom.setStyle(ele, "visibility", "visible");
-		}  
-	}
+      // Nos vamos a guardar este HTMLElement, asociado a este texto
+      var lista = mapEle[text];
+      // Nuevo término
+      if ( !lista ) {
+        lista = new Array();
+        mapEle[text] = lista;
+      }
+      lista.push(ele);
+    }
+  });
+  
+  // --------------------------------
+  // Step 2: Translate all the HTML elements
+  // -------------------------------- 
+  for ( var key in mapEle ) {
+    var listaEle = mapEle[key];
+    for(var ind=0; ind<listaEle.length; ++ind ) {
+      var ele = listaEle[ind];
+      ele.innerHTML = I18N.translateStr(key);
+      YAHOO.util.Dom.setStyle(ele, "visibility", "visible");
+    }  
+  }
 }
 
 /**
@@ -198,13 +198,13 @@ I18N.translatePage = function() {
  */
 I18N.loadAndTranslate = function() {
   I18N.loadData(function(){
-	  // Esto lo ejecutamos sólo cuando ya se haya cargado todo el HTML
-	  YAHOO.util.Event.onDOMReady(function(){
-	      // Marcamos el idioma activo
-	      I18N.funcSelectLang(I18N.selectors[I18N.currLang]);
-	      // Traducimos la página
-	      I18N.translatePage();
-	  });	
+    // Esto lo ejecutamos sólo cuando ya se haya cargado todo el HTML
+    YAHOO.util.Event.onDOMReady(function(){
+        // Marcamos el idioma activo
+        I18N.funcSelectLang(I18N.selectors[I18N.currLang]);
+        // Traducimos la página
+        I18N.translatePage();
+    }); 
   });
 }
 
@@ -233,21 +233,21 @@ I18N.setLangSelectors = function(lista) {
  * Change the current language. 
  */
 I18N.changeLang = function(lang) {
-	// Refresca la página, cambiando el idioma
-	// ¿Por qué refrescamos la página y no usamos JS? Se podría hacer, pero:
-	// - Complica el código
-	// - Nos obliga a cargar todos los contenidos en todos los idioma (problemas
-	//   si hay muchos idiomas)
-	// - El cambio lo hacemos en JS y tenemos que comunicarlo al servidor (para
-	//   que al navegar se mantenga el nuevo idioma) y eso lía el código.
-	// Lo más sencillo: refrescar la página (no es tan cool pero.....)
-	// Deseleccionamos el idioma antiguo
+  // Refresca la página, cambiando el idioma
+  // ¿Por qué refrescamos la página y no usamos JS? Se podría hacer, pero:
+  // - Complica el código
+  // - Nos obliga a cargar todos los contenidos en todos los idioma (problemas
+  //   si hay muchos idiomas)
+  // - El cambio lo hacemos en JS y tenemos que comunicarlo al servidor (para
+  //   que al navegar se mantenga el nuevo idioma) y eso lía el código.
+  // Lo más sencillo: refrescar la página (no es tan cool pero.....)
+  // Deseleccionamos el idioma antiguo
   /*
-	if ( I18N.currLang!=null ) {
+  if ( I18N.currLang!=null ) {
     I18N.funcDeselectLang(I18N.selectors[I18N.currLang]);
-	}
+  }
   */
-	// Refrescamos la página
+  // Refrescamos la página
   var newUrl;
 
   if ( I18N.langUrlParameterName!=null ) {
@@ -255,31 +255,31 @@ I18N.changeLang = function(lang) {
     var url = window.top.location.href;
     if ( url.indexOf("?")==-1 ) {
       newUrl = url + "?" + I18N.langUrlParameterName + "=" + lang;
-    // Parámetros adicionales	
-	  } else {
-	    var startPos = url.indexOf(I18N.langUrlParameterName+"=");
-			
-		  // Este parámetro no existe, lo añadimos		
-		  if ( startPos==-1 ) {
-			  newUrl = url + "&" + I18N.langUrlParameterName + "=" + lang;
-		  // Existe, tenemos que cambiar el valor	
-		  } else {
-			  // Ponemos el nuevo valor
-			  newUrl = url.substring(0, startPos) + I18N.langUrlParameterName + "=" + lang;
+    // Parámetros adicionales  
+    } else {
+      var startPos = url.indexOf(I18N.langUrlParameterName+"=");
+      
+      // Este parámetro no existe, lo añadimos    
+      if ( startPos==-1 ) {
+        newUrl = url + "&" + I18N.langUrlParameterName + "=" + lang;
+      // Existe, tenemos que cambiar el valor 
+      } else {
+        // Ponemos el nuevo valor
+        newUrl = url.substring(0, startPos) + I18N.langUrlParameterName + "=" + lang;
 
-			  // Vamos a ver si el parámetro no estaba al final de la cadena, 
-			  // con lo que nos queda un troz de url por añadir
-			  var endPos = url.indexOf("&", startPos+(I18N.langUrlParameterName+"=").length);
-			  if ( endPos!=-1 ) {
-				  newUrl += url.substring(endPos);
-			  }
-		  }
+        // Vamos a ver si el parámetro no estaba al final de la cadena, 
+        // con lo que nos queda un troz de url por añadir
+        var endPos = url.indexOf("&", startPos+(I18N.langUrlParameterName+"=").length);
+        if ( endPos!=-1 ) {
+          newUrl += url.substring(endPos);
+        }
+      }
     }
   } else {
     newUrl = window.top.location.href;   
   }
 
-	window.top.location.href = newUrl;
+  window.top.location.href = newUrl;
 }
 
 
@@ -291,7 +291,7 @@ I18N.changeLang = function(lang) {
  *         was not found
  */
 I18N.translateStr = function(str) {
-	var translation = I18N.translations[I18N.keysCaseInsensitive ? str.toLowerCase() : str];
+  var translation = I18N.translations[I18N.keysCaseInsensitive ? str.toLowerCase() : str];
 
   return translation ? translation : I18N.funcValue4NotTranslated(str);
 }
