@@ -5,5 +5,6 @@
 "sel_es"   : "Espanyol",
 "sel_en"   : "Anglès",
 "step1"    : "Aquest es el primer pas (català)",
-"step2"    : "Aquest es el segon pas (català)"
+"step2"    : "Aquest es el segon pas (català)",
+"food" : "http://costas-spain.perfecttravelblog.com/2258801996_f9931a6941.jpg"
 }

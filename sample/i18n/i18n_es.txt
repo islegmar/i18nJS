@@ -5,5 +5,6 @@
 "sel_es"   : "Español",
 "sel_en"   : "Inglés",
 "step1"    : "Este es el primer paso (español)",
-"step2"    : "Este es el segundo paso (español)"
+"step2"    : "Este es el segundo paso (español)",
+"food"     : "http://blog.liabeny.es/files/2011/05/Cocido-madrile%C3%B1o.jpg"
 }

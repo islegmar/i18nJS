@@ -212,7 +212,7 @@ I18N.prototype.obtainI18NElements = function() {
     if ( !text||text.length==0 ) {
       text=this.keysCaseInsensitive ? ele.innerHTML.toLowerCase() : ele.innerHTML;
     }
-    ele.innerHTML="";
+    //ele.innerHTML="";
     if ( text ) {
       /*
       if ( text.indexOf(",")!=-1 ) {
@@ -305,7 +305,13 @@ I18N.prototype.translatePage = function() {
     var listaEle = this.mapEle[key];
     for(var ind=0; ind<listaEle.length; ++ind ) {
       var ele = listaEle[ind];
-      ele.innerHTML = this.translateStr(key);
+      // It is an image
+      if ( ele.tagName.toLowerCase()=="img" ) {
+        ele.src = this.translateStr(key);  
+      // It is a text field  
+      } else {
+        ele.innerHTML = this.translateStr(key);
+      }
       YAHOO.util.Dom.setStyle(ele, "visibility", "visible");
     }  
   }

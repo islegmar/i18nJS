@@ -5,5 +5,6 @@
 "sel_es"   : "Spanish",
 "sel_en"   : "English",
 "step1"    : "This is the first step (english)",
-"step2"    : "This is the second step (english)"
+"step2"    : "This is the second step (english)",
+"food"     : "http://www.blogcdn.com/www.slashfood.com/media/2008/11/lastdish-hamburger.jpg"
 }
