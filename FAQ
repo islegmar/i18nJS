@@ -1,0 +1,42 @@
+CAN I HAVE IMAGES AS LANGUAGE SELECTOR?
+===========================================================================
+
+HOW CAN I KNOW WHICH IS THE ACTIVE LANGUAGE IN THE LANGUAGE SELECTOR?
+===========================================================================
+
+I HAVE A HUGE FILE WITH THE TRANSLATIONS FOR ALL THE PAGES. CAN I SPLIT IT?
+===========================================================================
+Having all the translations in a single file can cause speed problems if it 
+becomes too big. If you want to split it, one per page, add the follow code
+
+var i18n=new I18N();
+i18n.setSingleTranslationsFile(false); 
+
+Now, the i18n-file that a certain page will use will be:
+
+<pageName>_<lang>.txt
+
+where <pageName> is the name of the page without extensions.
+For example for the following URL:
+
+http://www.myapp.com/pages/listUsers.php
+
+the file located in the following URL will be used for the 'es' language:
+
+http://www.myapp.com/pages/i18n/listUsers_es.txt
+
+I HAVE SPLITTED I18N-FILES BUT I HAVE SOME COMMON CONTENT. CAN I HAVE A KIND OF GLOBAL I18N-FILE
+================================================================================================
+Not at this moment (coming soon).
+
+CAN I HAVE THE I18N-FILES IN ANOTHER FOLDER THAT i18n/?
+=======================================================
+
+CAN I RECEIVE AN ALERT IF A STRING HAS NOT BEEN TRANSLATED?
+===========================================================
+
+CAN I GET THE TRANSLATIONS FROM A DATABASE INSTEAD THE FILES?
+=============================================================
+
+I WAS ALREADY USING THE CLASS i18n FOR ANOTHER PURPOSES, WHAT CAN I DO?
+=======================================================================
