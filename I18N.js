@@ -25,7 +25,7 @@ function I18N() {
   this.i18nClass = "i18n";
   
   // Folder containing the files with the translations
-  this.dataDir = "./i18n/";
+  this.dataDir = "i18n/";
 
   // Map key:value with all the translations in the current language
   this.translations = new Array();
@@ -108,14 +108,14 @@ I18N.prototype.funcGetFile = function() {
  * Function called to select a language form the language selector
  */
 I18N.prototype.funcSelectLang = function(ele) {
-    YAHOO.util.Dom.addClass(ele, "active_lang");
+    $(ele).addClass("active_lang");
 }
 
 /**
  * Function called to deselect a language from the langauage selector
  */
 I18N.prototype.funcDeselectLang = function(ele) {
-    YAHOO.util.Dom.removeClass(ele, "active_lang");
+    $(ele).removeClass("active_lang");
 }
 
 // ----------------------------------------------------------- Protected Methods
@@ -207,7 +207,7 @@ I18N.prototype.obtainI18NElements = function() {
   
   // Get all the HTML elements that need a translation
   var myself=this;
-  YAHOO.util.Dom.getElementsByClassName(this.i18nClass, null, null, function(ele) {
+  $("."+this.i18nClass).each(function(index,ele) {
     var text=ele.id;
     if ( !text||text.length==0 ) {
       text=this.keysCaseInsensitive ? ele.innerHTML.toLowerCase() : ele.innerHTML;
@@ -277,21 +277,14 @@ I18N.prototype.loadData = function(pCallback, pParams) {
   
   var myself = this;
   
- 
- YAHOO.util.Connect.asyncRequest("POST", this.funcGetFile(),
- { 
-   success: function(o) { 
-     var data = YAHOO.lang.JSON.parse(o.responseText);
-     //var cadenas = data;
+  $.getJSON(this.funcGetFile(), function(data) { 
      for(var key in data ) {
        myself.translations[myself.keysCaseInsensitive ? key.toLowerCase() : key] = data[key];
      }
      if ( callback ) {
        callback(params); 
      }
-   },
-   failure: function(o) { /* Ignore. This error can raise if file loaded in local*/ }
- });
+  });
 }
 
 /**
@@ -312,7 +305,8 @@ I18N.prototype.translatePage = function() {
       } else {
         ele.innerHTML = this.translateStr(key);
       }
-      YAHOO.util.Dom.setStyle(ele, "visibility", "visible");
+      //YAHOO.util.Dom.setStyle(ele, "visibility", "visible");
+      $(ele).show();
     }  
   }
 }
@@ -326,7 +320,7 @@ I18N.prototype.loadAndTranslate = function() {
   var myself = this;  
   this.loadData(function(){
     // Esto lo ejecutamos sólo cuando ya se haya cargado todo el HTML
-    YAHOO.util.Event.onDOMReady(function(){
+    $(document).ready(function(){
         // Marcamos el idioma activo
         myself.funcSelectLang(myself.selectors[myself.currLang]);
         // Traducimos la página
@@ -346,13 +340,14 @@ I18N.prototype.setLangSelectors = function(lista) {
 
   // Loop over all the selectors
   for(var ind=0; ind<lista.length; ++ind) {
-    var ele = YAHOO.util.Dom.get(lista[ind][0]);
+    // TODO : check if lista[ind][0] is not already an HTMLElement
+    var ele = $("#"+lista[ind][0]);
     var lang = lista[ind][1];
 
     this.selectors[lang] = ele;
-    YAHOO.util.Event.addListener(ele, "click", function(evt, pLang) {
-      myself.changeLang(pLang);
-    }, lang);
+    $(ele).click({'lang':lang}, function(evt) {
+      myself.changeLang(evt.data.lang);
+    });
   }
   if ( this.currLang!=null ) {
     this.funcSelectLang(this.selectors[this.currLang]);

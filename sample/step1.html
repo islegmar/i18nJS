@@ -2,10 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <script type="text/javascript" src="http://yui.yahooapis.com/combo?2.9.0/build/yahoo-dom-event/yahoo-dom-event.js&2.9.0/build/connection/connection_core-min.js&2.9.0/build/element/element-min.js&2.9.0/build/json/json-min.js"></script> 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="../I18N.js" charset="UTF-8"></script>
     <script type="text/javascript">
-    YAHOO.util.Event.onDOMReady(function(){
+    $(document).ready(function(){
       var i18n=new I18N();
       i18n.setDefLang("es");
       i18n.setLangSelectors([ ['sel_ca','ca'],['sel_es','es'],['sel_en','en'] ]);
@@ -21,16 +21,19 @@
     }   
     #info {
     	font-weight:bold;
-    }    
+    }   
+    .langSelector:hover {
+      cursor:pointer;
+    } 
     </style>
   </head>
 <body>
   <h1>Keeping the language choice among calls (step#1)</h1>
   <p id="info">All the content that is multilanguage is shown in red</p>
   <p>This is the language selector</p>
-  <span id="sel_ca" class="i18n"></span>
-  <span id="sel_es" class="i18n"></span>
-  <span id="sel_en" class="i18n"></span>
+  <span id="sel_ca" class="i18n langSelector"></span>
+  <span id="sel_es" class="i18n langSelector"></span>
+  <span id="sel_en" class="i18n langSelector"></span>
   
   <p class="i18n">step1</p>
   Go next step keeping the language <a href="step2.html">&gt;&gt;&gt;</a><br/>
