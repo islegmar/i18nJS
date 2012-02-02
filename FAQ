@@ -1,5 +1,25 @@
 CAN I HAVE IMAGES AS LANGUAGE SELECTOR?
 =======================================
+Yes! You have to identify each image with an id and add the class i18n.
+
+If you have three languages 'en', 'es' and 'nl'
+
+[javascript]
+var i18n=new I18N();
+i18n.setLangSelectors([ ['sel_en','en'],['sel_es','es'],['sel_nl','nl'] ]);
+
+[HTML]
+<img id="sel_en" class="i18n" src="/url/to/image_english"></img>
+<img id="sel_es" class="i18n" src="/url/to/image_spanish"></img>
+<img id="sel_nl" class="i18n" src="/url/to/image_dutch"></img>
+  
+The method setLangSelectors receives and array of ['id HTML ELement','name of language']
+where the 'name of language' can be any string (it is used to identify the file with the 
+translations), but it is recommended to use the Language ISO 639-1 codes 
+
+http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+
+
 
 HOW CAN I KNOW WHICH IS THE ACTIVE LANGUAGE IN THE LANGUAGE SELECTOR?
 =====================================================================
